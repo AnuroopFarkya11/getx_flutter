@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx/routes/routes.dart';
 
 import 'getx_helper/controller.dart';
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
 
-      home: HomePage()
+      initialRoute: RoutesClass.getHomeRoute(),
+      getPages: RoutesClass.routes,
     );
   }
 }
@@ -35,23 +37,31 @@ class HomePage extends GetView<AppController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      ()=>Scaffold(
-        backgroundColor: controller.screenColor.value,
-        body: Center(
+          () =>
+          Scaffold(
+            backgroundColor: controller.screenColor.value,
+            body: Center(
 
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    controller.onTapChanged();
-                  },
-                  child: Obx(
-                      () => Text('${controller.changedText.value}')))
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    ElevatedButton(
+                    onPressed: () {
+            controller.onTapChanged();
+            },
+                child: Obx(
+                        () => Text('${controller.changedText.value}'))),
+
+
+            ElevatedButton(onPressed: () {
+                Get.toNamed(RoutesClass.getSecondScreen());
+
+            }, child: Text("Next"))
+
             ],
           ),
-        ),
-      ),
+    ),)
+    ,
     );
   }
 }
